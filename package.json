@@ -38,7 +38,6 @@
     "jszip": "^3.10.1",
     "mockjs": "^1.1.0",
     "normalize.css": "^8.0.1",
-    "npm": "^9.6.7",
     "nprogress": "^0.2.0",
     "path": "^0.12.7",
     "path-to-regexp": "^6.2.1",
