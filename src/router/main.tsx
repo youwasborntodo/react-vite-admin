@@ -138,12 +138,6 @@ export const mainRoute: RouterType[] = [
     roles: ['admin', 'editor']
   },
   {
-    path: "https://github.com/dez0514/react-admin",
-    label: 'menu.outlink',
-    icon: <LinkOutlined />,
-    roles: ['admin', 'editor', 'visitor']
-  },
-  {
     path: "404",
     label: "404",
     element: formatSuspense(<NotFound />),
