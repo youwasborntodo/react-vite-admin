@@ -11,7 +11,7 @@ import { GlobalConfigState } from '@/types/reducer'
 import { FormattedMessage } from "react-intl";
 import { UserContext } from '@/userProvider'
 
-function Dashboard() {
+function LayoutPage() {
   const { isAuth } = useContext(UserContext)
   useEffect(() => {
     console.log('isAuth===', isAuth)
@@ -68,4 +68,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard
+export default LayoutPage

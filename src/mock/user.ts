@@ -27,7 +27,7 @@ const users: any = {
   "admin-token": {
     id: "admin",
     role: "admin",
-    name: "寒山骚年",
+    name: "Dobby",
     avatar: avatar,
     description: "拥有系统内所有菜单和路由权限",
   },
