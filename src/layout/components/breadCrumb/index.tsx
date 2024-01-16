@@ -1,5 +1,5 @@
 import { Breadcrumb } from 'antd'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import { mainRoute } from '@/router/main'
 import { flatRouteTree } from '@/utils'
 import { useEffect, useState } from 'react'
@@ -8,7 +8,10 @@ import { FormattedMessage } from "react-intl";
 function CustomBreadcrumb() {
   const location = useLocation()
   const MenuData = flatRouteTree(mainRoute || [])
+
+  const params = useParams()
   const [breadList, setBreadList] = useState<any[]>([])
+
   const renderBreadcrumbs = () => {
     const paths = location.pathname.match(/\w+/g)
     if(paths === null) {
@@ -21,7 +24,11 @@ function CustomBreadcrumb() {
           title: fitem ? <FormattedMessage id={`${fitem.label}`} /> : ''
         }
       })
+   
       setBreadList([...temp])
+    }
+    if (params && params.type) {
+      setBreadList([...breadList, { title: <FormattedMessage id={`${params.type}`} /> }])
     }
   }
   useEffect(() => {

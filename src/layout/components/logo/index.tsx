@@ -36,7 +36,7 @@ function Logo({ collapsed, style }: { collapsed?: boolean | undefined, style?: C
       href="/#/dashboard"
     >
       <img src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg" alt="加载失败" title="logo" />
-      { !collapsed ? <Typography.Text style={{ ...spanStyle }} strong>React Admin</Typography.Text> : null }
+      { !collapsed ? <Typography.Text style={{ ...spanStyle }} strong>GYM 管理系统</Typography.Text> : null }
     </LogoBox>
   )
 }

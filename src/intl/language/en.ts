@@ -1,6 +1,11 @@
 export default {
   // common
   'common.systemTitle': 'React admin',
+  'create': 'Create',
+  'edit': 'Edit',
+  'delete': 'Delete',
+  'submit': 'Submit',
+  'cancel': 'Cancel',
   '404': '404',
   // menu
   'menu.home': 'Home',
@@ -16,6 +21,7 @@ export default {
   'menu.permissionTest.adminPage': 'Admin Page',
   'menu.permissionTest.editorPage': 'Editor Page',
   'menu.permissionTest.visitorPage': 'Visitor Page',
+  'menu.areaManage': 'Area Manage',
   'menu.userManage': 'User Manage',
   'menu.outlink': 'Outlink',
   'menu.excelexport': 'Excel Export',

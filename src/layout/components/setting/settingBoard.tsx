@@ -73,7 +73,7 @@ function Setting () {
           <Switch checked={!nofixedHeader} onChange={(value: boolean) => handleChangeFixHeader(value)}/>
         </div>
       </div>}
-      <div className='tw-flex tw-justify-between tw-items-center tw-mb-2'>
+      {/* <div className='tw-flex tw-justify-between tw-items-center tw-mb-2'>
         <div>
           <Typography.Text>
             <FormattedMessage id="layout.setting.isshowtagsview" />
@@ -82,7 +82,7 @@ function Setting () {
         <div>
           <Switch checked={!hideTagsView} onChange={(value: boolean) => handleChangeTagsViewShow(value)}/>
         </div>
-      </div>
+      </div> */}
       <div className='tw-flex tw-justify-between tw-mb-2'>
         <div>
           <Typography.Text>

@@ -41,6 +41,7 @@ export type ConfigData = {
 
 export type RouterType = {
   // route props
+  redirect?: string
   path?: string
   fullPath?: string
   element?: any

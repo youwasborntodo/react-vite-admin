@@ -5,7 +5,7 @@ export const CONFIG: ConfigData = {
   nofixedHeader: false,
   navType: 'lt',
   hideLogo: false,
-  hideTagsView: false,
+  hideTagsView: true,
   headerHeight: 48,
   siderWidth: 220,
   language: 'zh',

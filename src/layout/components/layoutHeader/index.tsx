@@ -10,7 +10,7 @@ import LayoutSider from '../layoutSider';
 import Logo from '../logo';
 import Breadcrumb from '../breadCrumb'
 import { CONFIG } from '@/config'
-import TagsView from '../tagsView';
+// import TagsView from '../tagsView';
 import { TagType, RouterType } from "@/types"
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ReactNode } from 'react'
@@ -97,18 +97,18 @@ function LayoutHeader({ hasSider = false, noLogo = false } : { hasSider?: boolea
         </div>
       </Header>
       {
-        !hideTagsView &&
-        (
-          <div
-            style={{
-              background: colorBgContainer,
-              borderBottom: `1px solid ${colorBorder}`,
-              boxShadow: 'rgba(0, 0, 0, 0.08) 0px 6px 16px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px -4px'
-            }}
-          >
-            <TagsView tags={tags} onClose={handleTagClose} />
-          </div>
-        )
+        // !hideTagsView &&
+        // (
+        //   <div
+        //     style={{
+        //       background: colorBgContainer,
+        //       borderBottom: `1px solid ${colorBorder}`,
+        //       boxShadow: 'rgba(0, 0, 0, 0.08) 0px 6px 16px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px -4px'
+        //     }}
+        //   >
+        //     <TagsView tags={tags} onClose={handleTagClose} />
+        //   </div>
+        // )
       }
     </>
   )

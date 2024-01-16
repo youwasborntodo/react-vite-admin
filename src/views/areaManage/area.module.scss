@@ -1,0 +1,16 @@
+.area_manage_haed{
+    display: flex;
+    flex-direction: row;
+    .area_manage_head_left{
+        flex: 1;
+    }
+    .area_manage_head_right{
+        flex: 1;
+        text-align: right;
+    }
+}
+.area_manage_detail{
+    background: #fff;
+    border-radius: 8px;
+    padding: 50px;
+}

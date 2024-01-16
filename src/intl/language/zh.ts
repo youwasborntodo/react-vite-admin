@@ -2,6 +2,11 @@ export default {
   // common
   'common.systemTitle': '管理系统',
   '404': '404',
+  'create': '新建',
+  'edit': '编辑',
+  'delete': '删除',
+  'submit': '提交',
+  'cancel': '取消',
   // menu
   'menu.home': '首页',
   'menu.guide': '引导页',
@@ -16,6 +21,7 @@ export default {
   'menu.permissionTest.adminPage': 'admin页面',
   'menu.permissionTest.editorPage': 'editor页面',
   'menu.permissionTest.visitorPage': 'visitor页面',
+  'menu.areaManage': '地区管理',
   'menu.userManage': '用户管理',
   'menu.outlink': '外链',
   'menu.excelexport': 'Excel导出',
