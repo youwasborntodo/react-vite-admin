@@ -3,7 +3,7 @@ import PageWrap from '@/components/page'
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {  addArea, editArea } from '@/api/area'
-import { AreaTypeModel } from '@/model/area.model'
+import { AreaTypeModel } from '@/model/common.model'
 import styles from './area.module.scss'
 
 function areaDetail() {

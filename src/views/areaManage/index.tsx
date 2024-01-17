@@ -11,7 +11,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { AreaTypeModel } from '@/model/area.model'
+import { AreaTypeModel, menuTypeModel } from '@/model/common.model'
 import { FormOutlined, DeleteOutlined } from '@ant-design/icons';
 import { getAreasList, deleteArea } from '@/api/area'
 import { useEffect, useState } from 'react';
@@ -22,13 +22,13 @@ import { useIntl } from 'react-intl'
 import { useTitle } from 'ahooks'
 import { useNavigate } from 'react-router-dom';
 import styles from './area.module.scss'
+import TheadPage from '@/components/tableHeader';
 
 interface RowProps extends React.HTMLAttributes<HTMLTableRowElement> {
   'data-row-key': string;
 }
 
 function areaManage() {
-  const intl = useIntl()
   const { formatMessage, locale  } = useIntl()
   const navigate = useNavigate()
   useTitle(formatMessage({ id: 'menu.areaManage' }))
@@ -37,6 +37,7 @@ function areaManage() {
   const { userinfo } = useSelector((store: GlobalConfigState) => store.userReducer)
   const dispatch = useDispatch()
   const [ areaList, setAreaList ] = useState<AreaTypeModel[]>([])
+  const [ areaSelectedList, setSelectedList ] = useState<AreaTypeModel[]>([])
   const [load, setLoad] = useState<boolean>(false);
   const getList = (updateUser: boolean = false) => {
     setLoad(true)
@@ -77,6 +78,10 @@ function areaManage() {
     })
   }
 
+  const handleDeleteSelected = () => {
+    console.log(areaSelectedList, 'areaSelectedList')
+  }
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -86,14 +91,14 @@ function areaManage() {
     }),
   );
 
-  const [selectionType, setSelectionType] = useState<'checkbox'>('checkbox');
-    // rowSelection object indicates the need for row selection
-  const rowSelection = {
+  const rowSelection: any = {
+    type: 'checkbox',
     onChange: (selectedRowKeys: React.Key[], selectedRows: AreaTypeModel[]) => {
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      setSelectedList(selectedRows)
     },
     getCheckboxProps: (record: AreaTypeModel) => ({
-      disabled: record.active, // Column configuration not to be checked
+      disabled: false, // Column configuration not to be checked
       name: record.id,
     }),
   };
@@ -139,13 +144,40 @@ function areaManage() {
     key: 'title_cn',
     dataIndex: 'title_cn'
   }
+  const tableHeaderOptions:menuTypeModel[] = [
+    {
+      type: 'button',
+      name: '删除',
+      layout: 'left',
+      params: {
+        data: areaSelectedList
+      },
+      callback:function() {
+        console.log(this.params, 'list--params-left')
+        handleDeleteSelected()
+      }
+    },
+    {
+      type: 'button',
+      name: '新建地区',
+      layout: 'right',
+      params: {
+        data:[]
+      },
+      callback:function() {
+        console.log(this.params, 'new--')
+        goToDetail()
+      }
+    }
+  ]
   const theadElement = ()  => {
     return (
       <div className={styles.area_manage_haed}>
         <div className={styles.area_manage_head_left}>
-          <Button type="primary" onClick={() => {
+          <Button type="primary" disabled={areaSelectedList.length <= 0} onClick={() => handleDeleteSelected()}>删除</Button> 
+          {/* <Button type="primary" onClick={() => {
 
-          }}>全选</Button> 
+          }}>排序</Button>  */}
         </div>
         <div className={styles.area_manage_head_right}>
           <Button type="primary" onClick={() => goToDetail()}>新增地区</Button> 
@@ -200,7 +232,9 @@ function areaManage() {
     <PageWrap className="areaManage">
       {contextHolder}
       {/* <TypingCard title='用户管理' source={cardContent}/> */}
-      <Card className='tw-mt-[20px]' title={theadElement()}>
+      {/* <Card className='tw-mt-[20px]' title={theadElement()}> */}
+      <Card className='tw-mt-[20px]' title={<TheadPage menuList={tableHeaderOptions}/>}>
+      
         <DndContext sensors={sensors}  onDragEnd={onDragEnd}>
           <SortableContext
             // rowKey array
@@ -209,7 +243,6 @@ function areaManage() {
           >
             <Table
               rowSelection={{
-                type: selectionType,
                 ...rowSelection,
               }}
               columns={columns}
