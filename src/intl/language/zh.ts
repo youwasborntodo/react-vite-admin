@@ -22,6 +22,7 @@ export default {
   'menu.permissionTest.editorPage': 'editor页面',
   'menu.permissionTest.visitorPage': 'visitor页面',
   'menu.areaManage': '地区管理',
+  'menu.trainerManage': '教练管理',
   'menu.userManage': '用户管理',
   'menu.outlink': '外链',
   'menu.excelexport': 'Excel导出',

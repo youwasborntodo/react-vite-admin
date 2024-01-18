@@ -1,4 +1,4 @@
-import { HomeOutlined, EnvironmentOutlined, TeamOutlined, LockOutlined, ProfileOutlined,FileExcelOutlined, RiseOutlined, AppstoreOutlined, LinkOutlined, TagsOutlined, ToolOutlined } from "@ant-design/icons"
+import { HomeOutlined, EnvironmentOutlined, TeamOutlined, LockOutlined, ProfileOutlined,NotificationOutlined, RiseOutlined, AppstoreOutlined, LinkOutlined, TagsOutlined, ToolOutlined } from "@ant-design/icons"
 import { RouterType } from "@/types"
 import { lazy, Suspense, ReactNode } from "react"
 import { Outlet, Navigate,redirect } from "react-router-dom"
@@ -20,6 +20,7 @@ const PermissionEditor = lazy(() => import('@/views/permissionTest/editor'))
 const PermissionVisitor = lazy(() => import('@/views/permissionTest/visitor'))
 const UserManage = lazy(() => import('@/views/userManage'))
 const AreaManage = lazy(() => import('@/views/areaManage'))
+const TrainerManage = lazy(() => import('@/views/trainerManage'))
 const AreaDetail = lazy(() => import('@/views/areaManage/detail'))
 const DragTable = lazy(() => import('@/views/componentsDemo/dragTable'))
 const DragTable2 = lazy(() => import('@/views/componentsDemo/dragTable2'))
@@ -54,6 +55,22 @@ export const mainRoute: RouterType[] = [
     icon: <EnvironmentOutlined />,
     roles: ['admin'],
   },
+  {
+    path: "trainerManage",
+    label: 'menu.trainerManage',
+    element: formatSuspense(<TrainerManage />),
+    icon: <NotificationOutlined />,
+    roles: ['admin'],
+  },
+  {
+    path: "trainerManage/:type",
+    label: 'menu.trainerManage',
+    hide: true,
+    element: formatSuspense(<AreaDetail />),
+    icon: <NotificationOutlined />,
+    roles: ['admin'],
+  },
+  
   // {
   //   path: "guide",
   //   label: 'menu.guide',

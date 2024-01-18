@@ -5,7 +5,7 @@ import { theadPropsType } from '@/model/common.model'
 
 
 
-export default function TheadPage(props: theadPropsType) {
+export default function SearchFilterPage(props: theadPropsType) {
     const renderView = (props:theadPropsType) => {
         const templateLeft:any = []
         const templateRight:any = []

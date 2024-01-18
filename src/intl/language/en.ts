@@ -22,6 +22,7 @@ export default {
   'menu.permissionTest.editorPage': 'Editor Page',
   'menu.permissionTest.visitorPage': 'Visitor Page',
   'menu.areaManage': 'Area Manage',
+  'menu.trainerManage': 'Trainer Manage',
   'menu.userManage': 'User Manage',
   'menu.outlink': 'Outlink',
   'menu.excelexport': 'Excel Export',

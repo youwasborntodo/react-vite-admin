@@ -22,15 +22,16 @@ import { useIntl } from 'react-intl'
 import { useTitle } from 'ahooks'
 import { useNavigate } from 'react-router-dom';
 import TheadPage from '@/components/tableHeader';
+import SearchFilterPage from '@/components/searchFilter';
 
 interface RowProps extends React.HTMLAttributes<HTMLTableRowElement> {
   'data-row-key': string;
 }
 
-function areaManage() {
+function trainerManage() {
   const { formatMessage, locale  } = useIntl()
   const navigate = useNavigate()
-  useTitle(formatMessage({ id: 'menu.areaManage' }))
+  useTitle(formatMessage({ id: 'menu.trainerManage' }))
   const [messageApi, contextHolder] = message.useMessage();
   // const cardContent = `在这里，你可以对系统中的用户进行管理，例如添加一个新用户，或者修改系统中已经存在的用户。`
   const { userinfo } = useSelector((store: GlobalConfigState) => store.userReducer)
@@ -62,9 +63,9 @@ function areaManage() {
   const goToDetail = (isEditMode: boolean = false, rowData?: AreaTypeModel | undefined) => {
     if(rowData) {
       const { id } = rowData
-      navigate('/areaManage/edit?id=' + id)
+      navigate('/trainerManage/edit?id=' + id)
     } else {
-      navigate('/areaManage/create')
+      navigate('/trainerManage/create')
     }
   }
 
@@ -143,6 +144,33 @@ function areaManage() {
     key: 'title_cn',
     dataIndex: 'title_cn'
   }
+  const searchFilterOptions:optionTypeModel[] = [
+    {
+      type: 'button',
+      name: '删除',
+      layout: 'left',
+      params: {
+        data: areaSelectedList
+      },
+      callback:function() {
+        console.log(this.params, 'list--params-left')
+        handleDeleteSelected()
+      }
+    },
+    {
+      type: 'button',
+      name: '搜索',
+      layout: 'right',
+      params: {
+        data:[]
+      },
+      callback:function() {
+        console.log(this.params, 'new--')
+        goToDetail()
+      }
+    }
+  ]
+
   const tableHeaderOptions:optionTypeModel[] = [
     {
       type: 'button',
@@ -158,7 +186,7 @@ function areaManage() {
     },
     {
       type: 'button',
-      name: '新建地区',
+      name: '新增教练',
       layout: 'right',
       params: {
         data:[]
@@ -216,6 +244,7 @@ function areaManage() {
     <PageWrap className="areaManage">
       {contextHolder}
       {/* <TypingCard title='用户管理' source={cardContent}/> */}
+      <SearchFilterPage style={{background: '#fff', borderRadius: 6, padding: '20px', width: '100%', margin: 0}} optionList={searchFilterOptions}/>
       <Card className='tw-mt-[20px]' title={<TheadPage optionList={tableHeaderOptions}/>}>
       
         <DndContext sensors={sensors}  onDragEnd={onDragEnd}>
@@ -244,4 +273,4 @@ function areaManage() {
   );
 }
 
-export default areaManage
+export default trainerManage

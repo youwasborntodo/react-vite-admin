@@ -5,10 +5,10 @@ export interface paramsTypeModel {
 }
 
 
-export interface menuTypeModel {
+export interface optionTypeModel {
   type: string
   name: string
-  layout: 'left' | 'right'
+  layout: 'left' | 'right' | 'top' | 'down'
   params: paramsTypeModel
   callback: any
 }
@@ -16,7 +16,7 @@ export interface menuTypeModel {
 export interface theadPropsType {
   style?: CSSProperties
   className?: string
-  menuList: menuTypeModel[]
+  optionList: optionTypeModel[]
 }
 
 export interface AreaTypeModel {
