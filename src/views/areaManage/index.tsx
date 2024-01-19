@@ -149,6 +149,7 @@ function areaManage() {
       name: '删除',
       layout: 'left',
       params: {
+        key: 'delete',
         data: areaSelectedList
       },
       callback:function() {
@@ -161,6 +162,7 @@ function areaManage() {
       name: '新建地区',
       layout: 'right',
       params: {
+        key: 'add',
         data:[]
       },
       callback:function() {

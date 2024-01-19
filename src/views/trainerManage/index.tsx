@@ -33,11 +33,16 @@ function trainerManage() {
   const navigate = useNavigate()
   useTitle(formatMessage({ id: 'menu.trainerManage' }))
   const [messageApi, contextHolder] = message.useMessage();
-  // const cardContent = `在这里，你可以对系统中的用户进行管理，例如添加一个新用户，或者修改系统中已经存在的用户。`
   const { userinfo } = useSelector((store: GlobalConfigState) => store.userReducer)
   const dispatch = useDispatch()
   const [ areaList, setAreaList ] = useState<AreaTypeModel[]>([])
   const [ areaSelectedList, setSelectedList ] = useState<AreaTypeModel[]>([])
+  const [ filterForm, setFilterForm ] = useState<any>({
+    area: 'all',
+    name: '',
+    phone: '',
+    type: 'all'
+  })
   const [load, setLoad] = useState<boolean>(false);
   const getList = (updateUser: boolean = false) => {
     setLoad(true)
@@ -135,6 +140,11 @@ function trainerManage() {
   useEffect(() => {
     getList()
   }, [])
+  useEffect(() => {
+
+      console.log('filterForm--useEffect--->', filterForm)
+
+  }, [filterForm])
   const dynamicItem = locale === 'en' ?     {
     title: '地区名称',
     key: 'title_en',
@@ -146,27 +156,126 @@ function trainerManage() {
   }
   const searchFilterOptions:optionTypeModel[] = [
     {
-      type: 'button',
-      name: '删除',
-      layout: 'left',
+      type: 'select',
+      name: '选择地区',
+      layout: 'top',
       params: {
-        data: areaSelectedList
+        key: 'area',
+        placeholder: '选择地区',
+        data: [
+          {
+          value: 'all',
+          label: 'All',
+          name_en: 'All',
+          name_cn: '全部',
+        },
+        {
+          value: 'ezd',
+          label: 'EZD',
+          name_en: 'EZD',
+          name_cn: '东区',
+        },
+        {
+          value: 'wzd',
+          label: 'WZD',
+          name_en: 'WZD',
+          name_cn: '西区',
+        },
+      ],
+        form: filterForm,
       },
-      callback:function() {
-        console.log(this.params, 'list--params-left')
-        handleDeleteSelected()
+      callback:function(value:string) {
+        const newFilterForm = Object.assign({}, filterForm)
+        newFilterForm[this.params.key] = value
+        setFilterForm(newFilterForm)
+      }
+    },
+    {
+      type: 'input',
+      name: '根据名字搜索',
+      layout: 'top',
+      params: {
+        key: 'name',
+        data: 'name',
+        placeholder: '根据名字搜索',
+        style: {width: '300px'},
+        form: filterForm
+      },
+      callback:function(value:string) {
+        const newFilterForm = Object.assign({}, filterForm)
+        newFilterForm[this.params.key] = value
+        setFilterForm(newFilterForm)
+      }
+    },
+    {
+      type: 'input',
+      name: '根据手机号搜索',
+      layout: 'top',
+      params: {
+        key: 'phone',
+        data: 'phone',
+        placeholder: '根据手机号搜索',
+        style: {width: '300px'},
+        form: filterForm,
+        rules: [{require: false, pattern:/^[8|9]\d{7}$/, message: '请输入正确的手机号'}]
+      },
+      callback:function(value:string) {
+        const newFilterForm = Object.assign({}, filterForm)
+        newFilterForm[this.params.key] = value
+        setFilterForm(newFilterForm)
       }
     },
     {
       type: 'button',
       name: '搜索',
-      layout: 'right',
+      layout: 'top',
       params: {
-        data:[]
+        key: 'search',
+        data: '',
+        form: filterForm
       },
       callback:function() {
-        console.log(this.params, 'new--')
-        goToDetail()
+        console.log(this.params, '--search--')
+      }
+    },
+    {
+      type: 'group',
+      name: 'group',
+      layout: 'bottom',
+      params: {
+        key: 'type',
+        data: [{
+          value: 'all',
+          name_en: 'all',
+          name_cn: '全部'
+        },
+        {
+          value: 'checking',
+          name_en: 'checking',
+          name_cn: '待审'
+        },
+        {
+          value: 'normal',
+          name_en: 'normal',
+          name_cn: '正常'
+        },
+        {
+          value: 'disabled',
+          name_en: 'disabled',
+          name_cn: '封禁'
+        },
+        {
+          value: 'filed',
+          name_en: 'filed',
+          name_cn: '归档'
+        }
+      ],
+        form: filterForm
+      },
+      callback:function(value:string) {
+        const newFilterForm = Object.assign({}, filterForm)
+        newFilterForm[this.params.key] = value
+        setFilterForm(newFilterForm)
       }
     }
   ]
@@ -177,6 +286,7 @@ function trainerManage() {
       name: '删除',
       layout: 'left',
       params: {
+        key: 'delete',
         data: areaSelectedList
       },
       callback:function() {
@@ -189,6 +299,7 @@ function trainerManage() {
       name: '新增教练',
       layout: 'right',
       params: {
+        key: 'add',
         data:[]
       },
       callback:function() {
@@ -241,15 +352,16 @@ function trainerManage() {
     }
   ]
   return ( 
-    <PageWrap className="areaManage">
+    <PageWrap className="trainerManage">
       {contextHolder}
       {/* <TypingCard title='用户管理' source={cardContent}/> */}
-      <SearchFilterPage style={{background: '#fff', borderRadius: 6, padding: '20px', width: '100%', margin: 0}} optionList={searchFilterOptions}/>
+      <SearchFilterPage style={{background: '#fff', borderRadius: 6, padding: '20px', width: '100%', margin: 0}} form={filterForm} optionList={searchFilterOptions}/>
       <Card className='tw-mt-[20px]' title={<TheadPage optionList={tableHeaderOptions}/>}>
       
         <DndContext sensors={sensors}  onDragEnd={onDragEnd}>
           <SortableContext
             // rowKey array
+            disabled={true}
             items={areaList.map((i) => i.id)}
             strategy={verticalListSortingStrategy}
           >

@@ -1,14 +1,19 @@
 import {CSSProperties} from 'react'
 
 export interface paramsTypeModel {
-  data: any []
+  key: string
+  data: any [] | string
+  form?: any
+  style?: CSSProperties
+  placeholder?:string
+  rules?: any []
 }
 
 
 export interface optionTypeModel {
   type: string
   name: string
-  layout: 'left' | 'right' | 'top' | 'down'
+  layout: 'left' | 'right' | 'top' | 'bottom'
   params: paramsTypeModel
   callback: any
 }
@@ -17,6 +22,7 @@ export interface theadPropsType {
   style?: CSSProperties
   className?: string
   optionList: optionTypeModel[]
+  form?:any
 }
 
 export interface AreaTypeModel {
