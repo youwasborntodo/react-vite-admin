@@ -22,6 +22,7 @@ const UserManage = lazy(() => import('@/views/userManage'))
 const AreaManage = lazy(() => import('@/views/areaManage'))
 const TrainerManage = lazy(() => import('@/views/trainerManage'))
 const AreaDetail = lazy(() => import('@/views/areaManage/detail'))
+const TrainerDetail = lazy(() => import('@/views/trainerManage/detail'))
 const DragTable = lazy(() => import('@/views/componentsDemo/dragTable'))
 const DragTable2 = lazy(() => import('@/views/componentsDemo/dragTable2'))
 // const ExcelExport = lazy(() => import('@/views/excel/export'))
@@ -66,7 +67,7 @@ export const mainRoute: RouterType[] = [
     path: "trainerManage/:type",
     label: 'menu.trainerManage',
     hide: true,
-    element: formatSuspense(<AreaDetail />),
+    element: formatSuspense(<TrainerDetail />),
     icon: <NotificationOutlined />,
     roles: ['admin'],
   },

@@ -63,7 +63,7 @@ function areaDetail() {
     }, [])
     return (<PageWrap className={styles.area_manage_detail}>
                <Form className='tw-mt-[20px]' form={form} name="user-form" labelCol={{ span: 4 }}>
-                <Form.Item name="id" label="用户ID" rules={[{ required: true }]}>
+                <Form.Item id="id" label="用户ID" rules={[{ required: true }]}>
                   <Input placeholder="id" disabled={isEdit} />
                 </Form.Item>
                 <Form.Item name="name" label="用户名称" rules={[{ required: true }]}>

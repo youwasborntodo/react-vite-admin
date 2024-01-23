@@ -33,5 +33,23 @@ export interface AreaTypeModel {
     image: string
     area_scope: string
     description?: string
-  }
+}
+
+export interface trainerTypeModel {
+  id: number
+  name_cn: string
+  name_en: string
+  active: boolean
+  for_kids: boolean
+  avatar: string
+  image: string
+  email: string
+  phone: number
+  score: number
+  certificate: string
+  gender: 'man'|'woman'
+  birthday: string
+  address: string
+  description?: string
+}
   
