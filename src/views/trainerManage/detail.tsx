@@ -28,6 +28,7 @@ function trainerDetail() {
           address: '',
           for_kids: false,
           f2f_service: false,
+          support_area: ['EZD'],
           type: '',
           avatar: '',
           email: '',
@@ -115,6 +116,9 @@ function trainerDetail() {
                   <Form.Item label="是否支持上门" name='f2f_service' valuePropName="for_kids">
                     <Switch />
                   </Form.Item>
+                  <Form.Item name="address" label="所在地址" rules={[{ required: true }]}>
+                    <Input placeholder="所在地址" />
+                  </Form.Item>
                   <Form.Item label='运动类型' name='type' rules={[{ required: true }]}>
                     <Select
                       placeholder="Select a option and change input text above"
@@ -125,7 +129,7 @@ function trainerDetail() {
                       <Select.Option value="tennis">网球</Select.Option>
                     </Select>
                   </Form.Item>    
-                  <Form.Item label='场馆地址' name='address' rules={[{ required: true }]}>
+                  <Form.Item label='服务区域' name='support_area' rules={[{ required: true }]}>
                     <Select
                       placeholder="Select a option and change input text above"
                       onChange={onTypeChange}

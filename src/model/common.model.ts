@@ -55,6 +55,7 @@ export interface trainerTypeModel {
   active: boolean
   for_kids: boolean
   f2f_service: boolean
+  support_area: string []
   type: string,
   avatar: string
   image: string
