@@ -223,7 +223,7 @@ function areaManage() {
         <DndContext sensors={sensors}  onDragEnd={onDragEnd}>
           <SortableContext
             // rowKey array
-            items={areaList.map((i) => i.id)}
+            items={areaList.map((i) => i.id + '')}
             strategy={verticalListSortingStrategy}
           >
             <Table

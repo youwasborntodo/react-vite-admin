@@ -25,14 +25,27 @@ export interface theadPropsType {
   form?:any
 }
 
-export interface AreaTypeModel {
+
+
+export interface adminTypeModel {
     id: number
-    title_cn: string
-    title_en: string
+    role: string
+    name: string
     active: boolean
-    image: string
-    area_scope: string
+    avatar: string
+    sort?: number
     description?: string
+}
+
+export interface AreaTypeModel {
+  id: number
+  title_cn: string
+  title_en: string
+  active: boolean
+  image: string
+  sort?: number
+  area_scope: string
+  description?: string
 }
 
 export interface trainerTypeModel {
@@ -41,6 +54,8 @@ export interface trainerTypeModel {
   name_en: string
   active: boolean
   for_kids: boolean
+  f2f_service: boolean
+  type: string,
   avatar: string
   image: string
   email: string
@@ -50,6 +65,59 @@ export interface trainerTypeModel {
   gender: 'man'|'woman'
   birthday: string
   address: string
+}
+
+export interface customerTypeModel {
+  id: number
+  name: string
+  active: boolean
+  type: string
+  avatar: string
+  email: string
+  phone: number
+  grade: number
+  course: {
+    total: number
+    already: number
+    surplus: number
+  }
+  trainer: trainerTypeModel[]
+  certificate: string
+  gender: 'man'|'woman'
+  birthday: string
+  address: string
+}
+
+export interface tagTypeModel {
+  id: number
+  title_cn: string
+  title_en: string
+  active: boolean
+  image: string
   description?: string
+}
+
+export interface sportTypeModel {
+  id: number
+  title_cn: string
+  title_en: string
+  sort?: number
+  active: boolean
+  image: string
+  description?: string
+}
+
+export interface sortItemTypeModel {
+  id: number
+  name: string
+  sort: number
+}
+export interface sortTypeModel {
+  id: number
+  title_cn: string
+  title_en: string
+  active: boolean
+  sort: number
+  data: sortItemTypeModel[]
 }
   

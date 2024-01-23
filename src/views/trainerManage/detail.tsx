@@ -3,7 +3,7 @@ import { PlusOutlined } from "@ant-design/icons"
 import PageWrap from '@/components/page'
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import {  addArea, editArea } from '@/api/area'
+import {  addTrainer, editTrainer } from '@/api/trainer'
 import { trainerTypeModel } from '@/model/common.model'
 import styles from './area.module.scss'
 
@@ -18,15 +18,17 @@ function trainerDetail() {
       console.log(trainerForm)
       trainerForm.validateFields().then(res => {
         // setLoad(true)
-        const { id, name, description } = res
+        const { id, name } = res
         const params: trainerTypeModel = {
-          id: id ,
+          id,
           name_en: name,
           name_cn: name,
           active: false,
           image: '',
-          address: description,
+          address: '',
           for_kids: false,
+          f2f_service: false,
+          type: '',
           avatar: '',
           email: '',
           phone: 0,
@@ -34,10 +36,9 @@ function trainerDetail() {
           certificate: '',
           gender: 'man',
           birthday: '',
-          description: ''
         }
         if(isEdit) {
-          editArea(params).then((data: any) => {
+          editTrainer(params).then((data: any) => {
             // setLoad(false)
             if(data.code === 0) {
               messageApi.success('修改成功')
@@ -48,7 +49,7 @@ function trainerDetail() {
             // setLoad(false)
           })
         } else {
-          addArea(params).then((data: any) => {
+          addTrainer(params).then((data: any) => {
             if(data.code === 0) {
               messageApi.success('新增成功')
               navigate(-1)
@@ -68,6 +69,11 @@ function trainerDetail() {
     };
 
     const onGenderChange = (e:any) => {
+      console.log(e)
+    }
+    
+
+    const onTypeChange = (e:any) => {
       console.log(e)
     }
     
@@ -97,17 +103,40 @@ function trainerDetail() {
     return (<PageWrap className={styles.area_manage_detail}>
                <Form className='tw-mt-[20px]' form={trainerForm} name="trainer" labelCol={{ span: 4 }}>
                   {renderId()}
-                  <Form.Item name="name" label="用户名" rules={[{ required: true }]}>
+                  <Form.Item name="name_en" label="User Name" rules={[{ required: true }]}>
+                    <Input placeholder="name" />
+                  </Form.Item>
+                  <Form.Item name="name_cn" label="用户名" rules={[{ required: true }]}>
                     <Input placeholder="name" />
                   </Form.Item>
                   <Form.Item label="是否可以给小朋友上课" name='for_kids' valuePropName="for_kids">
                     <Switch />
                   </Form.Item>
-                  <Form.Item name="address" label="场馆地址" rules={[{ required: true }]}>
-                    <Input placeholder="场馆地址" />
+                  <Form.Item label="是否支持上门" name='f2f_service' valuePropName="for_kids">
+                    <Switch />
                   </Form.Item>
-                  <Form.Item name="phone" label="电话" rules={[{ required: true }]}>
-                    <Input placeholder="联系电话" />
+                  <Form.Item label='运动类型' name='type' rules={[{ required: true }]}>
+                    <Select
+                      placeholder="Select a option and change input text above"
+                      onChange={onTypeChange}
+                    >
+                      <Select.Option value="yoga">瑜伽</Select.Option>
+                      <Select.Option value="gym">健身</Select.Option>
+                      <Select.Option value="tennis">网球</Select.Option>
+                    </Select>
+                  </Form.Item>    
+                  <Form.Item label='场馆地址' name='address' rules={[{ required: true }]}>
+                    <Select
+                      placeholder="Select a option and change input text above"
+                      onChange={onTypeChange}
+                    >
+                      <Select.Option value="CZD">CZD</Select.Option>
+                      <Select.Option value="EZD">EZD</Select.Option>
+                      <Select.Option value="WZD">WZD</Select.Option>
+                    </Select>
+                  </Form.Item>    
+                  <Form.Item name="phone" label="电话"  rules={[{ required: true }]}>
+                    <Input placeholder="联系电话" type='number' />
                   </Form.Item>
                   <Form.Item name="email" label="邮箱" rules={[{ required: true }]}>
                     <Input placeholder="邮箱地址" />
@@ -127,7 +156,8 @@ function trainerDetail() {
                     <Select.Option value="male">male</Select.Option>
                     <Select.Option value="female">female</Select.Option>
                   </Select>
-                </Form.Item>              
+                </Form.Item>      
+
 
                   <Form.Item label="图片" valuePropName="image" getValueFromEvent={normFile}>
                     <Upload action="/upload.do" listType="picture-card">
@@ -145,9 +175,6 @@ function trainerDetail() {
                         <div style={{ marginTop: 8 }}>Upload</div>
                       </button>
                     </Upload>
-                  </Form.Item>
-                  <Form.Item name="description" label="描述">
-                    <Input.TextArea placeholder="description" />
                   </Form.Item>
       
                   <Form.Item name='operation' wrapperCol={{ span: 12, offset: 6 }}>

@@ -11,9 +11,9 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { AreaTypeModel, optionTypeModel } from '@/model/common.model'
+import { trainerTypeModel, optionTypeModel } from '@/model/common.model'
 import { FormOutlined, DeleteOutlined } from '@ant-design/icons';
-import { getAreasList, deleteArea } from '@/api/area'
+import { getTrainerList, deleteTrainer } from '@/api/trainer'
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { GlobalConfigState } from '@/types/reducer';
@@ -35,8 +35,8 @@ function trainerManage() {
   const [messageApi, contextHolder] = message.useMessage();
   const { userinfo } = useSelector((store: GlobalConfigState) => store.userReducer)
   const dispatch = useDispatch()
-  const [ areaList, setAreaList ] = useState<AreaTypeModel[]>([])
-  const [ areaSelectedList, setSelectedList ] = useState<AreaTypeModel[]>([])
+  const [ trainerList, setTrainerList ] = useState<trainerTypeModel[]>([])
+  const [ areaSelectedList, setSelectedList ] = useState<trainerTypeModel[]>([])
   const [ filterForm, setFilterForm ] = useState<any>({
     area: 'all',
     name: '',
@@ -46,9 +46,10 @@ function trainerManage() {
   const [load, setLoad] = useState<boolean>(false);
   const getList = (updateUser: boolean = false) => {
     setLoad(true)
-    getAreasList().then((res: any) => {
+    getTrainerList().then((res: any) => {
       if(res.code === 0) {
-        setAreaList(res.data.map((item: any, index: number) => {
+        setTrainerList(res.data.map((item: any, index: number) => {
+          console.log(item, 'item--')
           return {
             key: String(index),
             ...item
@@ -65,7 +66,7 @@ function trainerManage() {
     })
   }
 
-  const goToDetail = (isEditMode: boolean = false, rowData?: AreaTypeModel | undefined) => {
+  const goToDetail = (isEditMode: boolean = false, rowData?: trainerTypeModel | undefined) => {
     if(rowData) {
       const { id } = rowData
       navigate('/trainerManage/edit?id=' + id)
@@ -74,8 +75,8 @@ function trainerManage() {
     }
   }
 
-  const handleDelete = (row: AreaTypeModel) => {
-    deleteArea({ id: row.id }).then((res: any) => {
+  const handleDelete = (row: trainerTypeModel) => {
+    deleteTrainer({ id: row.id }).then((res: any) => {
       if(res.code === 0) {
         messageApi.success('删除成功')
         getList()
@@ -98,11 +99,11 @@ function trainerManage() {
 
   const rowSelection: any = {
     type: 'checkbox',
-    onChange: (selectedRowKeys: React.Key[], selectedRows: AreaTypeModel[]) => {
+    onChange: (selectedRowKeys: React.Key[], selectedRows: trainerTypeModel[]) => {
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
       setSelectedList(selectedRows)
     },
-    getCheckboxProps: (record: AreaTypeModel) => ({
+    getCheckboxProps: (record: trainerTypeModel) => ({
       disabled: false, // Column configuration not to be checked
       name: record.id,
     }),
@@ -111,7 +112,7 @@ function trainerManage() {
   const onDragEnd = ({ active, over }: DragEndEvent) => {
     console.log(active, over)
     if (active.id !== over?.id) {
-      setAreaList((prev) => {
+      setTrainerList((prev) => {
         const activeIndex = prev.findIndex((i) => i.id === active.id);
         const overIndex = prev.findIndex((i) => i.id === over?.id);
         return arrayMove(prev, activeIndex, overIndex);
@@ -146,13 +147,13 @@ function trainerManage() {
 
   }, [filterForm])
   const dynamicItem = locale === 'en' ?     {
-    title: '地区名称',
-    key: 'title_en',
-    dataIndex: 'title_en'
+    title: 'Name',
+    key: 'name_en',
+    dataIndex: 'name_en'
   } :     {
-    title: '地区名称',
-    key: 'title_cn',
-    dataIndex: 'title_cn'
+    title: '教练',
+    key: 'name_cn',
+    dataIndex: 'name_cn'
   }
   const searchFilterOptions:optionTypeModel[] = [
     {
@@ -309,11 +310,13 @@ function trainerManage() {
     }
   ]
 
-  const columns: ColumnsType<AreaTypeModel> = [
+  const columns: ColumnsType<trainerTypeModel> = [
     {
-      title: '用户ID',
-      key: 'id',
-      dataIndex: 'id'
+      title: '头像',
+      key: 'avatar',
+      render: (_, { avatar }) => (
+        <img className='tw-w-[40px]' src={avatar} />
+      )
     },
     dynamicItem,
     {
@@ -326,9 +329,9 @@ function trainerManage() {
       )
     },
     {
-      title: '范围',
-      dataIndex: 'area_scope',
-      key: 'area_scope'
+      title: '评分',
+      dataIndex: 'score',
+      key: 'score'
     },
     {
       title: '操作',
@@ -362,7 +365,9 @@ function trainerManage() {
           <SortableContext
             // rowKey array
             disabled={true}
-            items={areaList.map((i) => i.id)}
+            items={trainerList.map((item) => {
+              return item.id + ''
+            })}
             strategy={verticalListSortingStrategy}
           >
             <Table
@@ -376,7 +381,7 @@ function trainerManage() {
                 },
               }}
               rowKey="id" 
-              dataSource={areaList} 
+              dataSource={trainerList} 
               pagination={{ pageSize: 10 }} />
           </SortableContext>
         </DndContext>
