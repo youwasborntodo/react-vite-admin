@@ -1,4 +1,4 @@
-import { Button, Space, Form, Input,Select, Switch,Checkbox, DatePicker, Divider, message, Upload, GetProp ,CheckboxProps} from 'antd'
+import { Button, Space, Form, Input,Select, Switch,Checkbox, Card, Divider, message, Upload, GetProp ,CheckboxProps} from 'antd'
 import { PlusOutlined } from "@ant-design/icons"
 import PageWrap from '@/components/page'
 import { useEffect, useState } from 'react';
@@ -31,6 +31,7 @@ function trainerDetail() {
           image: '',
           address: '',
           for_kids: false,
+          lnglat: ['', ''],
           f2f_service: false,
           support_area: ['EZD'],
           type: '',
@@ -66,44 +67,16 @@ function trainerDetail() {
       })
     }
 
-    const normFile = (e: any) => {
-      if (Array.isArray(e)) {
-        return e;
-      }
-      return e?.fileList;
-    };
-
     const onGenderChange = (e:any) => {
       console.log(e)
     }
-    
-
-    const onTypeChange = (e:any) => {
-      console.log(e)
-    }
-    
+ 
     const handleCancel = () => {
       trainerForm.resetFields()
       navigate(-1)
     }
 
-    const checkboxOptions = ['EZD', 'NZD', 'WZD', 'CZD'];
-    // const defaultCheckedList = ['Apple', 'Orange'];
 
-    // const [checkedList, setCheckedList] = useState<CheckboxValueType[]>(defaultCheckedList);
-
-    // const checkAll = plainOptions.length === checkedList.length;
-    // const indeterminate = trainerForm.support_area.length > 0 && checkedList.length < plainOptions.length;
-  
-    const onChange = (list: CheckboxValueType[]) => {
-      // setCheckedList(list);
-      console.log(trainerForm.getFieldValue('support_area'), 'trainerform---', list)
-    };
-
-    const onCheckAllChange: CheckboxProps['onChange'] = (e) => {
-      // setCheckedList(e.target.checked ? plainOptions : []);
-      console.log(trainerForm, 'trainerform--2-')
-    };
 
     const renderId = () => {
       if(isEdit) {
@@ -123,48 +96,22 @@ function trainerDetail() {
         }
     }, [])
     return (<PageWrap className={styles.area_manage_detail}>
-               <Form className='tw-mt-[20px]' initialValues={initialValues} form={trainerForm} name="trainer" labelCol={{ span: 4 }}>
+              <div className="basicInfo">
+                <h2>基本信息</h2>
+                <Form className='tw-mt-[20px]' initialValues={initialValues} form={trainerForm} name="trainer" labelCol={{ span: 4 }}>
                   {renderId()}
-                  <Form.Item name="name_en" label="User Name" rules={[{ required: true }]}>
-                    <Input placeholder="name" />
-                  </Form.Item>
                   <Form.Item name="name_cn" label="用户名" rules={[{ required: true }]}>
                     <Input placeholder="name" />
-                  </Form.Item>
-                  <Form.Item label="是否可以给小朋友上课" name='for_kids' valuePropName="for_kids">
-                    <Switch />
-                  </Form.Item>
-                  <Form.Item label="是否支持上门" name='f2f_service' valuePropName="for_kids">
-                    <Switch />
                   </Form.Item>
                   <Form.Item name="address" label="所在地址" rules={[{ required: true }]}>
                     <Input placeholder="所在地址" />
                   </Form.Item>
-                  <Form.Item label='运动类型' name='type' rules={[{ required: true }]}>
-                    <Select
-                      placeholder="Select a option and change input text above"
-                      onChange={onTypeChange}
-                    >
-                      <Select.Option value="yoga">瑜伽</Select.Option>
-                      <Select.Option value="gym">健身</Select.Option>
-                      <Select.Option value="tennis">网球</Select.Option>
-                    </Select>
-                  </Form.Item>    
-                  <Form.Item label='服务区域' name='support_area' rules={[{ required: true, message: '请选择服务区域' }]}>
-                      <CheckboxGroup options={checkboxOptions} onChange={onChange} />
-                  </Form.Item>    
+        
                   <Form.Item name="phone" label="电话"  rules={[{ required: true }]}>
                     <Input placeholder="联系电话" type='number' />
                   </Form.Item>
                   <Form.Item name="email" label="邮箱" rules={[{ required: true }]}>
                     <Input placeholder="邮箱地址" />
-                  </Form.Item>
-                  <Form.Item
-                    label="生日"
-                    name="birthday"
-                    rules={[{ required: true, message: 'Please input!' }]}
-                  >
-                    <DatePicker />
                   </Form.Item>
                   <Form.Item name="gender" label="性别" rules={[{ required: true }]}>
                   <Select
@@ -176,34 +123,29 @@ function trainerDetail() {
                   </Select>
                 </Form.Item>      
 
-
-                  <Form.Item label="图片" valuePropName="image" getValueFromEvent={normFile}>
-                    <Upload action="/upload.do" listType="picture-card">
-                      <button style={{ border: 0, background: 'none' }} type="button">
-                        <PlusOutlined />
-                        <div style={{ marginTop: 8 }}>Upload</div>
-                      </button>
-                    </Upload>
-                  </Form.Item>
-               
-                  <Form.Item label="资质" valuePropName="certificate" getValueFromEvent={normFile}>
-                    <Upload action="/upload.do" listType="picture-card">
-                      <button style={{ border: 0, background: 'none' }} type="button">
-                        <PlusOutlined />
-                        <div style={{ marginTop: 8 }}>Upload</div>
-                      </button>
-                    </Upload>
-                  </Form.Item>
-      
-                  <Form.Item name='operation' wrapperCol={{ span: 12, offset: 6 }}>
-                    <Space>
-                      <Button onClick={handleOk} type="primary" htmlType="submit">
-                        Submit
-                      </Button>
-                      <Button onClick={handleCancel} htmlType="reset">Cancel</Button>
-                    </Space>
-                  </Form.Item> 
                 </Form>
+              </div>
+              <h2>课程</h2>
+              <div className={styles.courseContent}>
+              <Card title="Card title" className={styles.course_card} bordered={false} style={{ width: 300 }}>
+                <p>Card content</p>
+                <p>Card content</p>
+                <p>Card content</p>
+              </Card>
+              <Card title="Card title" className={styles.course_card} bordered={false} style={{ width: 300 }}>
+                <p>Card content</p>
+                <p>Card content</p>
+                <p>Card content</p>
+              </Card>
+              </div>
+              <div className={styles.operation}>
+                <Space>
+                      <Button onClick={handleOk} type="primary" danger htmlType="submit">
+                        封禁
+                      </Button>
+                      <Button onClick={handleCancel} htmlType="reset">返回</Button>
+                    </Space>
+              </div>
             </PageWrap>)
 }
 export default trainerDetail

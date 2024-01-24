@@ -66,6 +66,7 @@ export interface trainerTypeModel {
   gender: 'man'|'woman'
   birthday: string
   address: string
+  lnglat: [string, string]
 }
 
 export interface customerTypeModel {

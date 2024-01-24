@@ -6,6 +6,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import {  addTrainer, editTrainer } from '@/api/trainer'
 import { trainerTypeModel } from '@/model/common.model'
 import styles from './area.module.scss'
+import LnglatInput from '@/components/lnglatInput/index'
 type CheckboxValueType = GetProp<typeof Checkbox.Group, 'value'>[number];
 
 function trainerDetail() {
@@ -13,6 +14,7 @@ function trainerDetail() {
     const [trainerForm] = Form.useForm();
     const initialValues = {
       support_area: [],
+      lnglat: ['123.11', '1.22'], // 经纬度
     }
     const [isEdit, setIsEdit] = useState<boolean>(false);
     const params = useParams()
@@ -30,6 +32,7 @@ function trainerDetail() {
           active: false,
           image: '',
           address: '',
+          lnglat: ['123.11', '1.22'], // 经纬度
           for_kids: false,
           f2f_service: false,
           support_area: ['EZD'],
@@ -105,6 +108,8 @@ function trainerDetail() {
       console.log(trainerForm, 'trainerform--2-')
     };
 
+
+
     const renderId = () => {
       if(isEdit) {
         return (
@@ -115,6 +120,7 @@ function trainerDetail() {
       }
     }
     useEffect(() => {
+      
         console.log(params, 'params----')
         if(params.type && params.type === 'create') {
           setIsEdit(false)
@@ -137,9 +143,16 @@ function trainerDetail() {
                   <Form.Item label="是否支持上门" name='f2f_service' valuePropName="for_kids">
                     <Switch />
                   </Form.Item>
-                  <Form.Item name="address" label="所在地址" rules={[{ required: true }]}>
-                    <Input placeholder="所在地址" />
-                  </Form.Item>
+                  <div className={styles.grid_layout}>
+                    <div className={styles.grid}>
+                      <Form.Item name="address" label="所在地址" rules={[{ required: true }]}>
+                        <Input placeholder="所在地址" />
+                      </Form.Item>
+                    </div>
+                    <div className={styles.grid}>
+                      <LnglatInput form={trainerForm}></LnglatInput>
+                    </div>
+                  </div>
                   <Form.Item label='运动类型' name='type' rules={[{ required: true }]}>
                     <Select
                       placeholder="Select a option and change input text above"
