@@ -24,7 +24,25 @@ export default function TheadPage(props: theadPropsType) {
 
     }
     const renderLeftItem = (item:any, key:string) => {
-        return (<Button type="primary" key={key} disabled={item.params.data.length <= 0} onClick={() => {item.callback()}}>{item.name}</Button> )
+        if (item.params.key === 'delete') {
+            const renderSelected = () => {
+                if (item.params.data.length > 0) {
+                    return (
+                        <span style={{marginRight: 10, fontSize: 14, fontWeight: 'normal'}}>己选中:{item.params.data.length}</span>
+                    )
+                }
+            }
+
+            return (
+                <div key={key}>
+                    {renderSelected()}
+                    <Button type="primary"  disabled={item.params.data.length <= 0} onClick={() => {item.callback()}}>{item.name}</Button>
+                </div>
+            )
+        } else {
+            return (<Button type="primary" key={key} disabled={item.params.data.length <= 0} onClick={() => {item.callback()}}>{item.name}</Button> )
+        }
+
     }
 
     const renderRightItem = (item:any, key:string) => {

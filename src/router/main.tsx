@@ -1,4 +1,4 @@
-import { HomeOutlined, EnvironmentOutlined, TeamOutlined, LockOutlined, ProfileOutlined,NotificationOutlined, RiseOutlined, AppstoreOutlined, LinkOutlined, TagsOutlined, ToolOutlined } from "@ant-design/icons"
+import { HomeOutlined, EnvironmentOutlined, TeamOutlined, LockOutlined, ProfileOutlined,NotificationOutlined, UserOutlined, RiseOutlined, AppstoreOutlined, LinkOutlined, TagsOutlined, ToolOutlined } from "@ant-design/icons"
 import { RouterType } from "@/types"
 import { lazy, Suspense, ReactNode } from "react"
 import { Outlet, Navigate,redirect } from "react-router-dom"
@@ -21,8 +21,10 @@ const PermissionVisitor = lazy(() => import('@/views/permissionTest/visitor'))
 const UserManage = lazy(() => import('@/views/userManage'))
 const AreaManage = lazy(() => import('@/views/areaManage'))
 const TrainerManage = lazy(() => import('@/views/trainerManage'))
+const CustomerManage = lazy(() => import('@/views/customerManage'))
 const AreaDetail = lazy(() => import('@/views/areaManage/detail'))
 const TrainerDetail = lazy(() => import('@/views/trainerManage/detail'))
+const CustomerDetail = lazy(() => import('@/views/customerManage/detail'))
 const DragTable = lazy(() => import('@/views/componentsDemo/dragTable'))
 const DragTable2 = lazy(() => import('@/views/componentsDemo/dragTable2'))
 // const ExcelExport = lazy(() => import('@/views/excel/export'))
@@ -69,6 +71,22 @@ export const mainRoute: RouterType[] = [
     hide: true,
     element: formatSuspense(<TrainerDetail />),
     icon: <NotificationOutlined />,
+    roles: ['admin'],
+  },
+
+  {
+    path: "customerManage",
+    label: 'menu.customerManage',
+    element: formatSuspense(<CustomerManage />),
+    icon: <UserOutlined />,
+    roles: ['admin'],
+  },
+  {
+    path: "customerManage/:type",
+    label: 'menu.customerManage',
+    hide: true,
+    element: formatSuspense(<CustomerDetail />),
+    icon: <UserOutlined />,
     roles: ['admin'],
   },
   

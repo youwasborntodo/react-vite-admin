@@ -5,8 +5,10 @@ import { LOGIN_FETCH, USER_NAMESPACE, USERINFO_FETCH } from '@/actions/actionTyp
 import { StorageKeys } from '@/types/enum' 
 
 export const loginReducerApi: any = createAsyncThunk(`${USER_NAMESPACE}/${LOGIN_FETCH}`, async (params: any, action) => {
+  console.log('init--login--')
   try {
     const res = await loginPost(params)
+    console.log('res--', res)
     return res.data
   } catch(error) {
     throw error

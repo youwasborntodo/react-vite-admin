@@ -153,6 +153,7 @@ service.interceptors.request.use(
 )
 service.interceptors.response.use(
   (response: any) => {
+    console.log("init--fetch1-")
     // 成功请求到数据
     console.log('response==', response)
     changeLoadingState(response.config, false)
@@ -163,8 +164,9 @@ service.interceptors.response.use(
     return Promise.resolve(response.data)
   },
   (error) => {
+    console.log("init--fetch-2")
     // 响应错误处理
-    // console.log('error==', error)
+    console.log('error==', error)
     changeLoadingState(error.config, false)
     let hideErr = false
     if(error.config.hideErrorByCallback && typeof error.config.hideErrorByCallback === 'function') {

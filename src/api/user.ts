@@ -1,7 +1,7 @@
 import { get, post } from '../utils/fetch'
 
 export const loginPost = (params: any = {}, config: any = {}) => {
-  return post('/api/login', params, config)
+  return post('/api/oauth/token', params, config)
 }
 
 export const getUserInfo = (params: any = {}, config: any = {}) => {

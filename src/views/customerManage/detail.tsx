@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {  addTrainer, editTrainer } from '@/api/trainer'
 import { trainerTypeModel } from '@/model/common.model'
-import styles from './area.module.scss'
+import styles from './customer.module.scss'
 type CheckboxValueType = GetProp<typeof Checkbox.Group, 'value'>[number];
 
 function trainerDetail() {
