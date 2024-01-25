@@ -89,6 +89,11 @@ function changeLoadingState(config: any, toState: boolean) {
 }
 // config
 function compileConfig(config: any) {
+  // get,set token...
+  const token = sessionStorage.getItem(StorageKeys.TOKEN)
+  if(token) {
+    config.headers.Authorization = token; // 坑：axios-mock-adapter 监听不到更新
+  }
   // 默认修改post的Content-Type
   if(config.method === 'post') { // post默认
     config.headers['Content-Type'] = CONTENT_TYPE.json
@@ -98,11 +103,6 @@ function compileConfig(config: any) {
   if(!newHeaders) newHeaders = {};
   config = { ...defaultRest, ...rest, headers: { ...headers, ...newHeaders }}
   // config 重新赋值了, 要return出去
-  // get,set token...
-  const token = sessionStorage.getItem(StorageKeys.TOKEN)
-  if(token) {
-    config.headers.Authorization = token; // 坑：axios-mock-adapter 监听不到更新
-  }
   // 处理restful方式的url, 形如 '/article/:id'
 	const data = ['get', 'delete', 'head'].includes(config.method) ? config.params : config.data;
   const parseData = parse(config.url);
