@@ -4,9 +4,9 @@ export const loginPost = (params: any = {}, config: any = {}) => {
   return post('/api/oauth/token', params, config)
 }
 
-export const getUserInfo = (params: any = {}, config: any = {}) => {
-  return get('/api/userinfo', params, config)
-}
+// export const getUserInfo = (params: any = {}, config: any = {}) => {
+//   return get('/api/userinfo', params, config)
+// }
 
 export const getUsersList = (params: any = {}, config: any = {}) => {
   return get('/api/getuserList', params, config)

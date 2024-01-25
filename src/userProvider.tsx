@@ -23,7 +23,7 @@ export function UserProvider(props: ContextProps) {
     } else {
       const users = sessionStorage.getItem(StorageKeys.USERINFO)
       const info = JSON.parse(users || "{}")
-      if (!info || !info.name || !info.role) {
+      if (!info || !info.name || !info.permissions) {
         const { payload } = await dispatch(userinfoReducerApi())
         if (!payload) setIsAuth(false);
         setIsLoading(false)

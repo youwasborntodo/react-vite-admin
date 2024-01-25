@@ -6,7 +6,7 @@ import avatar1 from '@/assets/avatar/1.jpg'
 // const roles: string[] = ['admin', 'editor', 'visitor']
 const roles: any = [
   {
-    name: 'admin',
+    name: 'all',
     description: '拥有系统内所有菜单和路由权限'
   },
   {

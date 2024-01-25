@@ -13,7 +13,7 @@ import { CONFIG } from '@/config'
 const { Sider } = AntdLayOut;
 
 
-const formatMenu: any = (menuRoutes: RouterType[] | undefined, role: string) => {
+const formatMenu: any = (menuRoutes: RouterType[] | undefined, permissions: string) => {
   const menus = []
   if (!menuRoutes) {
     return null
@@ -24,10 +24,10 @@ const formatMenu: any = (menuRoutes: RouterType[] | undefined, role: string) => 
       label: <FormattedMessage id={`${route.label}`} />,
       key: route.path,
       icon: route.icon,
-      children: formatMenu(route.children, role)
+      children: formatMenu(route.children, permissions)
     }
     if (!route.hide) {
-      if(role === 'admin' || !route.roles || route.roles!.includes(role)) {
+      if(permissions.includes('all') || !route.permission || permissions.includes(route.permission)) {
         menus.push(menu)
       }
     }
@@ -135,7 +135,7 @@ function LayoutSider({ style = {}, mode = 'inline', noLogo = false, subtractTags
         }}
         openKeys={memoSubKeys}
         selectedKeys={memoSelectedKeys}
-        items={formatMenu(mainRoute, userinfo.role)}
+        items={formatMenu(mainRoute, userinfo.permissions)}
         onSelect={({ keyPath, key }) => {
           if(!isURL(key)) {
             const path = formatPath(keyPath)

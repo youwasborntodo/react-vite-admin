@@ -45,7 +45,7 @@ export default function Login() {
       return
     };
     const { payload: infoPayload } = await dispatch(userinfoReducerApi()) // 获取userinfo
-    // console.log('log user=====', infoPayload)
+    console.log('log---- user=====', infoPayload)
     if(!infoPayload) {
       setBtnLoad(false)
       return

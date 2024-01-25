@@ -17,11 +17,16 @@ export function RootRouter() {
     }
   })
   const handleRoutesFilter = (arr: RouterType[]) => {
-    const { role } = userinfo
-    if(role === 'admin') {
-      return arr
+    const { permissions } = userinfo
+    console.log('userinfo--', userinfo)
+    if (permissions) {
+      if(permissions.includes('all')) {
+        return arr
+      } else {
+        return arr.filter((item: RouterType) => !item.permission || permissions.includes(item.permission)).filter(item => !item.children || item.children.length !== 0)
+      }
     } else {
-      return arr.filter((item: RouterType) => !item.roles || item.roles!.includes(role)).filter(item => !item.children || item.children.length !== 0)
+      return arr.filter((item: RouterType) => !item.permission)
     }
   }
   return (

@@ -91,7 +91,7 @@ function changeLoadingState(config: any, toState: boolean) {
 function compileConfig(config: any) {
   // 默认修改post的Content-Type
   if(config.method === 'post') { // post默认
-    config.headers['Content-Type'] = CONTENT_TYPE.xwform
+    config.headers['Content-Type'] = CONTENT_TYPE.json
   }
   const { headers, ...defaultRest } = defaultConfig
   let { headers: newHeaders, ...rest } = config

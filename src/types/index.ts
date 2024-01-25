@@ -54,6 +54,7 @@ export type RouterType = {
   label?: string | ReactNode
   hide?: boolean
   // auth props
+  permission?: string
   roles?: string[]
 }
 

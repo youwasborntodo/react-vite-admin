@@ -41,14 +41,14 @@ export const mainRoute: RouterType[] = [
     label: 'menu.home',
     element: <Home />,
     icon: <HomeOutlined />,
-    roles: ['admin', 'editor', 'visitor']
+    permission: 'dashboard'
   },
   {
     path: "areaManage",
     label: 'menu.areaManage',
     element: formatSuspense(<AreaManage />),
     icon: <EnvironmentOutlined />,
-    roles: ['admin'],
+    permission: 'area'
   },
   {
     path: "areaManage/:type",
@@ -56,14 +56,14 @@ export const mainRoute: RouterType[] = [
     hide: true,
     element: formatSuspense(<AreaDetail />),
     icon: <EnvironmentOutlined />,
-    roles: ['admin'],
+    permission: 'area'
   },
   {
     path: "trainerManage",
     label: 'menu.trainerManage',
     element: formatSuspense(<TrainerManage />),
     icon: <NotificationOutlined />,
-    roles: ['admin'],
+    permission: 'trainer'
   },
   {
     path: "trainerManage/:type",
@@ -71,7 +71,7 @@ export const mainRoute: RouterType[] = [
     hide: true,
     element: formatSuspense(<TrainerDetail />),
     icon: <NotificationOutlined />,
-    roles: ['admin'],
+    permission: 'trainer'
   },
 
   {
@@ -79,7 +79,7 @@ export const mainRoute: RouterType[] = [
     label: 'menu.customerManage',
     element: formatSuspense(<CustomerManage />),
     icon: <UserOutlined />,
-    roles: ['admin'],
+    permission: 'customer'
   },
   {
     path: "customerManage/:type",
@@ -87,7 +87,7 @@ export const mainRoute: RouterType[] = [
     hide: true,
     element: formatSuspense(<CustomerDetail />),
     icon: <UserOutlined />,
-    roles: ['admin'],
+    permission: 'customer'
   },
   
   // {
@@ -95,7 +95,6 @@ export const mainRoute: RouterType[] = [
   //   label: 'menu.guide',
   //   element: formatSuspense(<Guide />),
   //   icon: <RiseOutlined />,
-  //   roles: ['admin', 'editor']
   // },
   {
     path: "components",
@@ -108,14 +107,12 @@ export const mainRoute: RouterType[] = [
         label: 'menu.components.dragTable',
         icon: <ProfileOutlined />,
         element: formatSuspense(<DragTable />),
-        roles: ['admin', 'editor', 'visitor']
       },
       {
         path: "dragTable2",
         label: 'menu.components.dragTable2',
         icon: <ProfileOutlined />,
         element: formatSuspense(<DragTable2 />),
-        roles: ['admin', 'editor', 'visitor']
       }
     ]
   },
@@ -124,34 +121,32 @@ export const mainRoute: RouterType[] = [
     label: 'menu.permissionTest',
     element: <Outlet />,
     icon: <LockOutlined />,
+    permission: 'permissionTest',
     children: [
       {
         path: "introduce",
         label: 'menu.permissionTest.introduce',
         icon: <ProfileOutlined />,
         element: formatSuspense(<PermissionIntro />),
-        roles: ['admin', 'editor', 'visitor']
       },
       {
         path: "adminPage",
         label: 'menu.permissionTest.adminPage',
         icon: <HomeOutlined />,
         element: formatSuspense(<PermissionAdmin />),
-        roles: ['admin']
       },
       {
         path: "editorPage",
         label: 'menu.permissionTest.editorPage',
         icon: <HomeOutlined />,
         element: formatSuspense(<PermissionEditor />),
-        roles: ['admin', 'editor']
       },
       {
         path: "visitorPage",
         label: 'menu.permissionTest.visitorPage',
         icon: <HomeOutlined />,
         element: formatSuspense(<PermissionVisitor />),
-        roles: ['admin', 'visitor']
+        permission: 'visitorPage'
       },
     ]
   },
@@ -181,14 +176,12 @@ export const mainRoute: RouterType[] = [
     label: 'menu.userManage',
     element: formatSuspense(<UserManage />),
     icon: <TeamOutlined />,
-    roles: ['admin']
   },
   {
     path: "roleManage",
     label: 'menu.roleManage',
     element: formatSuspense(<RoleManage />),
     icon: <TagsOutlined />,
-    roles: ['admin', 'editor']
   },
   {
     path: "404",
