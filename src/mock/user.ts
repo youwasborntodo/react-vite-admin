@@ -6,7 +6,7 @@ import avatar1 from '@/assets/avatar/1.jpg'
 // const roles: string[] = ['admin', 'editor', 'visitor']
 const roles: any = [
   {
-    name: 'all',
+    name: 'admin',
     description: '拥有系统内所有菜单和路由权限'
   },
   {
@@ -25,34 +25,45 @@ const tokens: any = {
 }
 const users: any = {
   "admin-token": {
-    id: "admin",
-    role: "admin",
-    name: "Dobby",
-    avatar: avatar,
-    description: "拥有系统内所有菜单和路由权限",
+    accessToken: 'admin-token',
+    userInfo: {
+      id: "admin",
+      permissions: ['all'],
+      name: "Dobby",
+      avatar: avatar,
+      description: "拥有系统内所有菜单和路由权限",
+    }
   },
   "editor-token": {
-    id: "editor",
-    role: "editor",
-    name: "编辑员",
-    avatar: avatar0,
-    description:"可以看到除户管理页面之外的所有页面",
+    accessToken: 'editor-token',
+    userInfo: {
+      id: "editor",
+      permissions: ['area'],
+      name: "编辑员",
+      avatar: avatar0,
+      description:"可以看到除户管理页面之外的所有页面",
+    }
   },
   "visitor-token": {
-    id: "visitor",
-    role: "visitor",
-    name: "游客",
-    avatar: avatar1,
-    description:"仅能看到首页、权限测试页面",
+    accessToken: 'visitor-token',
+    userInfo: {
+      id: "visitor",
+      permissions: ['area'],
+      name: "游客",
+      avatar: avatar1,
+      description:"仅能看到首页、权限测试页面",
+    }
   }
 };
 
 export const login = (config: any) => {
   // console.log('config===', config)
   const { data } = config; // 获取前端传递的数据
-  // console.log('data===',data);
-  const { username } = qs.parse(data)
-  if(!username || !Object.keys(tokens).includes(username as string)){
+  console.log('data===',data);
+  const { username } = JSON.parse(data)
+  const token = `${username}-token`
+  console.log(token, 'sss', username)
+  if(!token || !Object.keys(users).includes(token as string)){
     const err = {
       code: 1,
       message: 'error.username.password.wrong'
@@ -62,7 +73,7 @@ export const login = (config: any) => {
   const response = {
     code: 0,
     message: 'success',
-    data: tokens[username as string]
+    data: users[token as string]
   }
   return [200, response];
 }
